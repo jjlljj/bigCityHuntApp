@@ -9,6 +9,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from '../../reducers/rootReducer';
 
+import { fetchHunts } from '../../api/apiCalls.js'; 
 
 const store = createStore(rootReducer);
 
@@ -22,6 +23,17 @@ const instructions = Platform.select({
 type Props = {};
 
 export default class App extends Component<Props> {
+
+  componentDidMount = async() => {
+    try {
+      const hunts = await fetchHunts()
+      console.log(hunts)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
