@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { MapView } from 'react-native-maps';
 
 class MapViewContainer extends Component {
   static navigationOptions = {
