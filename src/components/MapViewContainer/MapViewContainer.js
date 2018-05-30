@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 class MapViewContainer extends Component {
   static navigationOptions = {
@@ -17,7 +17,12 @@ class MapViewContainer extends Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      >
+        <Marker
+          coordinate={{latitude: 39.747523, longitude: -104.9920755}}
+          title={"Cool Marker"}
+        />
+      </MapView>
     )
   }
 }
