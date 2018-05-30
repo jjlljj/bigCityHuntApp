@@ -9,7 +9,6 @@ import { createBottomTabNavigator, TabNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from '../../reducers/rootReducer';
-import { fetchHunts } from '../../api/apiCalls.js'; 
 import MapViewContainer from '../MapViewContainer/MapViewContainer.js';
 import BlogView from '../BlogView/BlogView.js';
 
@@ -42,19 +41,11 @@ const RootNav = createBottomTabNavigator(routeConfig, navConfig);
 
 export default class App extends Component {
 
-  componentDidMount = async() => {
-    try {
-      const hunts = await fetchHunts()
-      console.log(hunts)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
   render() {
     return (
-      <RootNav />
+      <Provider store={store}>
+        <RootNav />
+      </Provider>
     );
   }
 }
