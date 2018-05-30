@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,6 +5,12 @@ import {
   Text,
   View
 } from 'react-native';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from '../../reducers/rootReducer';
+
+
+const store = createStore(rootReducer);
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -20,6 +20,7 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
 export default class App extends Component<Props> {
   render() {
     return (
