@@ -12,8 +12,8 @@ class MapViewContainer extends Component {
        <MapView
         style={styles.container}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: 39.747523,
+          longitude: -104.9920755,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
