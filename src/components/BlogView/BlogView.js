@@ -10,7 +10,7 @@ class BlogView extends Component {
     return (
       <WebView
         source={{uri: 'https://letsroam.com/explorer/)'}}
-        style={{marginTop: 20}}
+        style={{marginTop: 20, flex: 1}}
       />
     )
   }
