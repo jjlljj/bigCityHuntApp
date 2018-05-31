@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import MarkerModal from '../MarkerModal/MarkerModal.js';
 import { fetchHunts } from '../../api/apiCalls.js'; 
-import { addHunts } from '../../actions';
+import { addHunts, updateMarkerModal, toggleMarkerModal } from '../../actions';
 
 const markerIcon = require('./assets/marker-icon.png')
 
@@ -36,7 +36,7 @@ class MapViewContainer extends Component {
             style={{width: 28, height: 34}} 
             key={`hunt${hunt.hunt_id}`}
             coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
-            onCalloutPress={() => this.handleCalloutPress(hunt.name)}
+            onCalloutPress={() => this.handleCalloutPress(hunt)}
             title={hunt.name}
             centerOffset={{x: -6, y: -20}}
             calloutOffset={{x: -10, y: -24}}
@@ -48,13 +48,11 @@ class MapViewContainer extends Component {
     }
   }
 
-  handleCalloutPress = huntName => {
-    console.log(huntName)
-    // have modal always set, with state, hide && toggle it based on click events
-  }
+  handleCalloutPress = hunt => {
+    const { updateMarkerModal, toggleMarkerModal } = this.props
 
-  hideModal = () => {
-    // hide modal on modal click event
+    updateMarkerModal(hunt)
+    toggleMarkerModal()
   }
 
   render() {
@@ -96,7 +94,9 @@ const mapStateToProps = ({hunts}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addHunts: hunts => dispatch(addHunts(hunts))
+  addHunts: hunts => dispatch(addHunts(hunts)),
+  updateMarkerModal: hunt => dispatch(updateMarkerModal(hunt)),
+  toggleMarkerModal: () => dispatch(toggleMarkerModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapViewContainer)
