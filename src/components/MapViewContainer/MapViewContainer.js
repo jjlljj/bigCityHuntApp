@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchHunts } from '../../api/apiCalls.js'; 
 import { addHunts } from '../../actions';
 import MapView, { Marker } from 'react-native-maps';
+
+const markerIcon = require('./assets/marker-icon.png')
 
 class MapViewContainer extends Component {
   static navigationOptions = {
@@ -30,11 +32,16 @@ class MapViewContainer extends Component {
       return hunts.map(hunt => {
         return (
           <Marker
+            style={{width: 28, height: 34}} 
             key={`hunt${hunt.hunt_id}`}
             coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
             onCalloutPress={() => this.handleCalloutPress(hunt.name)}
             title={hunt.name}
-          />
+            centerOffset={{x: -6, y: -20}}
+            calloutOffset={{x: 0, y: -24}}
+          >
+            <Image source={markerIcon} style={{width: 24, height: 36, marginLeft: -6, marginTop: -20}} />
+          </Marker>
         )
       })
     }
