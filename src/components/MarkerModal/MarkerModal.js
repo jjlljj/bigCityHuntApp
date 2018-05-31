@@ -18,10 +18,12 @@ class MarkerModal extends Component {
     return (
         <Modal isVisible={showMarkerModal} animationIn="slideInUp" animationTiming="300">
           <View style={styles.modalView}>
-            <Image 
-              style={styles.huntBanner} 
-              source={{uri: huntLargePhotoURL }}
-            />
+            <View style={styles.huntBanner}>
+              <Image 
+                source={{uri: huntLargePhotoURL }}
+                style={{flex: 1, borderTopLeftRadius: 12, borderTopRightRadius: 12}} 
+              />
+            </View>
             <View style={styles.headerWrap}>
               <Text style={styles.headerText}>{name}</Text>
             </View>
@@ -30,7 +32,7 @@ class MarkerModal extends Component {
               <Text>{description}</Text>
             </View>
             <TouchableOpacity style={styles.hideBtn} onPress={this.toggleModal}>
-              <Text>Hide me!</Text>
+              <Text style={{color: '#f2f2f2', fontSize: 14, fontWeight: 'bold'}}>Close</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -40,21 +42,25 @@ class MarkerModal extends Component {
 
 const styles = StyleSheet.create({
   modalView: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 12,
     flex: 1,
+    justifyContent: 'flex-start',
     marginVertical: 30,
     marginHorizontal: 20,
     position: 'relative',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2'
   },
   huntBanner: {
     alignSelf: 'stretch',
-    height: 180
+    height: 180,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    overflow: 'hidden',
   },
   headerWrap: {
     alignSelf: 'stretch',
-    textAlign: 'center',
+    alignContent: 'center',
     backgroundColor: '#2EC4B6',
     paddingHorizontal: 10,
     paddingVertical: 15,
@@ -68,14 +74,15 @@ const styles = StyleSheet.create({
   textWrap: {
     padding: 10,
   },
-
   hideBtn: {
-    alignSelf: 'stretch',
-    backgroundColor: '#2EC4B6',
-    bottom: 10,
-    margin: 10,
-    position: 'absolute',
     alignItems: 'center',
+    backgroundColor: '#2EC4B6',
+    borderRadius: 4,
+    bottom: 0,
+    margin: 20,
+    padding: 10,
+    position: 'absolute',
+    width: 240,
   }
 });
 
