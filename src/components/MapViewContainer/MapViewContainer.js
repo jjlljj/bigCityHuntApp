@@ -6,7 +6,7 @@ import MarkerModal from '../MarkerModal/MarkerModal.js';
 import { fetchHunts } from '../../api/apiCalls.js'; 
 import { addHunts, updateMarkerModal, toggleMarkerModal } from '../../actions';
 
-const markerIcon = require('./assets/marker-icon.png')
+const markerIcon = require('./assets/marker-icon.png');
 
 class MapViewContainer extends Component {
   static navigationOptions = {
@@ -14,20 +14,20 @@ class MapViewContainer extends Component {
   }
 
   componentDidMount = () => {
-    this.getCityHunts()
+    this.getCityHunts();
   }
 
   getCityHunts = async() => {
     try {
-      const hunts = await fetchHunts()
-      this.props.addHunts(hunts)
+      const hunts = await fetchHunts();
+      this.props.addHunts(hunts);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   renderHuntMarkers = () => {
-    let { hunts } = this.props
+    let { hunts } = this.props;
 
     if (hunts.length) {
       return hunts.map(hunt => {
@@ -43,16 +43,16 @@ class MapViewContainer extends Component {
           >
             <Image source={markerIcon} style={{width: 24, height: 36, marginLeft: -6, marginTop: -20}} />
           </Marker>
-        )
-      })
+        );
+      });
     }
   }
 
   handleCalloutPress = hunt => {
-    const { updateMarkerModal, toggleMarkerModal } = this.props
+    const { updateMarkerModal, toggleMarkerModal } = this.props;
 
-    updateMarkerModal(hunt)
-    toggleMarkerModal()
+    updateMarkerModal(hunt);
+    toggleMarkerModal();
   }
 
   render() {
@@ -73,7 +73,7 @@ class MapViewContainer extends Component {
         </MapView>
         <MarkerModal />
       </View>
-    )
+    );
   }
 }
 
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({hunts}) => ({
   hunts
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   addHunts: hunts => dispatch(addHunts(hunts)),
   updateMarkerModal: hunt => dispatch(updateMarkerModal(hunt)),
   toggleMarkerModal: () => dispatch(toggleMarkerModal())
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapViewContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(MapViewContainer);
