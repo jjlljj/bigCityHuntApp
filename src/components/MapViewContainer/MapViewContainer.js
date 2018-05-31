@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchHunts } from '../../api/apiCalls.js'; 
 import { addHunts } from '../../actions';
 import MapView, { Marker } from 'react-native-maps';
+import Modal from 'react-native-modal';
 
 const markerIcon = require('./assets/marker-icon.png')
 
@@ -38,7 +39,7 @@ class MapViewContainer extends Component {
             onCalloutPress={() => this.handleCalloutPress(hunt.name)}
             title={hunt.name}
             centerOffset={{x: -6, y: -20}}
-            calloutOffset={{x: 0, y: -24}}
+            calloutOffset={{x: -10, y: -24}}
           >
             <Image source={markerIcon} style={{width: 24, height: 36, marginLeft: -6, marginTop: -20}} />
           </Marker>
