@@ -24,8 +24,23 @@ class MapViewContainer extends Component {
     }
   }
 
-  render() {
+  renderHuntMarkers = () => {
     let { hunts } = this.props
+
+    if (hunts.length) {
+      return hunts.map(hunt => {
+        return (
+          <Marker
+            coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
+            title={hunt.name}
+          />
+        )
+      })
+
+    }
+  }
+
+  render() {
 
     return (
        <MapView
@@ -38,12 +53,7 @@ class MapViewContainer extends Component {
           longitudeDelta: 0.0421,
         }}
       >
-        { hunts.length &&
-          <Marker
-            coordinate={{latitude: parseFloat(hunts[0].lat), longitude: parseFloat(hunts[0].long)}}
-            title={"Cool Marker"}
-          />
-        }
+        { this.renderHuntMarkers() }
       </MapView>
     )
   }
