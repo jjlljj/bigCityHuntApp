@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 import { createBottomTabNavigator, TabNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -29,6 +23,7 @@ const navConfig = {
   activeTintColor: "#f2f2f2",
   activeBackgroundColor: "#2EC4B6",
   inactiveTintColor: "#666",
+  padding: 20,
   labelStyle: {
     fontSize: 22,
     padding: 12

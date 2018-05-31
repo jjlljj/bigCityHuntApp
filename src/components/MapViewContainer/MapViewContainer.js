@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchHunts } from '../../api/apiCalls.js'; 
-import { addHunts } from '../../actions';
 import MapView, { Marker } from 'react-native-maps';
+import MarkerModal from '../MarkerModal/MarkerModal.js';
+import { fetchHunts } from '../../api/apiCalls.js'; 
+import { addHunts, updateMarkerModal, toggleMarkerModal } from '../../actions';
 
 const markerIcon = require('./assets/marker-icon.png')
 
@@ -35,10 +36,10 @@ class MapViewContainer extends Component {
             style={{width: 28, height: 34}} 
             key={`hunt${hunt.hunt_id}`}
             coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
-            onCalloutPress={() => this.handleCalloutPress(hunt.name)}
+            onCalloutPress={() => this.handleCalloutPress(hunt)}
             title={hunt.name}
             centerOffset={{x: -6, y: -20}}
-            calloutOffset={{x: 0, y: -24}}
+            calloutOffset={{x: -10, y: -24}}
           >
             <Image source={markerIcon} style={{width: 24, height: 36, marginLeft: -6, marginTop: -20}} />
           </Marker>
@@ -47,25 +48,31 @@ class MapViewContainer extends Component {
     }
   }
 
-  handleCalloutPress = huntName => {
-    console.log(huntName)
+  handleCalloutPress = hunt => {
+    const { updateMarkerModal, toggleMarkerModal } = this.props
+
+    updateMarkerModal(hunt)
+    toggleMarkerModal()
   }
 
   render() {
 
     return (
-       <MapView
-        style={styles.container}
-        mapType="mutedStandard"
-        initialRegion={{
-          latitude: 39.747523,
-          longitude: -104.9920755,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        { this.renderHuntMarkers() }
-      </MapView>
+      <View style={styles.container} >
+        <MapView
+          style={styles.mapView}
+          mapType="mutedStandard"
+          initialRegion={{
+            latitude: 39.747523,
+            longitude: -104.9920755,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          { this.renderHuntMarkers() }
+        </MapView>
+        <MarkerModal />
+      </View>
     )
   }
 }
@@ -73,9 +80,13 @@ class MapViewContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  mapView: {
+    ...StyleSheet.absoluteFillObject,
+  }
 });
 
 const mapStateToProps = ({hunts}) => ({
@@ -83,7 +94,9 @@ const mapStateToProps = ({hunts}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addHunts: hunts => dispatch(addHunts(hunts))
+  addHunts: hunts => dispatch(addHunts(hunts)),
+  updateMarkerModal: hunt => dispatch(updateMarkerModal(hunt)),
+  toggleMarkerModal: () => dispatch(toggleMarkerModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapViewContainer)

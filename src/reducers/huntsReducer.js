@@ -1,8 +1,8 @@
-export const huntsReducer = (store = [],  action) => {
+export const huntsReducer = (state = [],  action) => {
   switch (action.type) {
   case 'ADD_HUNTS':
     return action.hunts;
   default:
-    return store;
+    return state;
   }
 };
