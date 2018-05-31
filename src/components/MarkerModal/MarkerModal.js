@@ -28,8 +28,9 @@ class MarkerModal extends Component {
               <Text style={styles.headerText}>{name}</Text>
             </View>
             <View style={styles.textWrap}>
-              <Text>{`Starting Location: ${starting_location}`}</Text>
-              <Text>{description}</Text>
+              <Text style={{ marginBottom: 10 }}>{`Score: ${star_rating}/5`}</Text>
+              <Text style={{ marginBottom: 10 }}>{`Starting Area: ${starting_location}`}</Text>
+              <Text style={{ marginBottom: 10 }}>{description}</Text>
             </View>
             <TouchableOpacity style={styles.hideBtn} onPress={this.toggleModal}>
               <Text style={{color: '#f2f2f2', fontSize: 14, fontWeight: 'bold'}}>Close</Text>
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   },
   headerWrap: {
     alignSelf: 'stretch',
-    alignContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#2EC4B6',
     paddingHorizontal: 10,
     paddingVertical: 15,
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
   
   },
   textWrap: {
-    padding: 10,
+    padding: 15,
+    marginHorizontal: 10,
   },
   hideBtn: {
     alignItems: 'center',
