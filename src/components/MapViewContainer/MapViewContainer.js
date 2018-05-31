@@ -18,7 +18,6 @@ class MapViewContainer extends Component {
     try {
       const hunts = await fetchHunts()
       this.props.addHunts(hunts)
-      console.log('hunts', hunts[0])
     } catch (error) {
       console.log(error)
     }
@@ -31,13 +30,18 @@ class MapViewContainer extends Component {
       return hunts.map(hunt => {
         return (
           <Marker
+            key={`hunt${hunt.hunt_id}`}
             coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
+            onCalloutPress={() => this.handleCalloutPress(hunt.name)}
             title={hunt.name}
           />
         )
       })
-
     }
+  }
+
+  handleCalloutPress = huntName => {
+    console.log(huntName)
   }
 
   render() {
