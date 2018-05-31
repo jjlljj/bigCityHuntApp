@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { connect } from 'react-redux';
+import MapView, { Marker } from 'react-native-maps';
+import MarkerModal from '../MarkerModal/MarkerModal.js';
 import { fetchHunts } from '../../api/apiCalls.js'; 
 import { addHunts } from '../../actions';
-import MapView, { Marker } from 'react-native-maps';
-import Modal from 'react-native-modal';
 
 const markerIcon = require('./assets/marker-icon.png')
 
@@ -50,23 +50,31 @@ class MapViewContainer extends Component {
 
   handleCalloutPress = huntName => {
     console.log(huntName)
+    // have modal always set, with state, hide && toggle it based on click events
+  }
+
+  hideModal = () => {
+    // hide modal on modal click event
   }
 
   render() {
 
     return (
-       <MapView
-        style={styles.container}
-        mapType="mutedStandard"
-        initialRegion={{
-          latitude: 39.747523,
-          longitude: -104.9920755,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        { this.renderHuntMarkers() }
-      </MapView>
+      <View style={styles.container} >
+        <MapView
+          style={styles.mapView}
+          mapType="mutedStandard"
+          initialRegion={{
+            latitude: 39.747523,
+            longitude: -104.9920755,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          { this.renderHuntMarkers() }
+        </MapView>
+        <MarkerModal />
+      </View>
     )
   }
 }
@@ -74,9 +82,13 @@ class MapViewContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  mapView: {
+    ...StyleSheet.absoluteFillObject,
+  }
 });
 
 const mapStateToProps = ({hunts}) => ({
