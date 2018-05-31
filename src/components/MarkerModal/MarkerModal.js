@@ -7,13 +7,12 @@ import { toggleMarkerModal } from '../../actions';
 class MarkerModal extends Component {
 
   toggleModal = () => {
-    this.props.toggleMarkerModal()
-  }
+    this.props.toggleMarkerModal();
+  };
 
   render() {
     const { showMarkerModal, markerModalContent } = this.props;
     const { name, city, state, description, huntLargePhotoURL, long_description, star_rating, starting_location  } = markerModalContent;
-    console.log(markerModalContent)
 
     return (
       <Modal 
@@ -23,26 +22,26 @@ class MarkerModal extends Component {
         hideModalContentWhileAnimatinbg="true"
         supportedOrientations={['portrait']}
       >
-          <View style={styles.modalView}>
-            <View style={styles.huntBanner}>
-              <Image 
-                source={{uri: huntLargePhotoURL }}
-                style={{flex: 1, borderTopLeftRadius: 12, borderTopRightRadius: 12}} 
-              />
-            </View>
-            <View style={styles.headerWrap}>
-              <Text style={styles.headerText}>{name}</Text>
-            </View>
-            <View style={styles.textWrap}>
-              <Text style={{ marginBottom: 10 }}>{`Score: ${star_rating}/5`}</Text>
-              <Text style={{ marginBottom: 10 }}>{`Starting Area: ${starting_location}`}</Text>
-              <Text style={{ marginBottom: 10 }}>{description}</Text>
-            </View>
-            <TouchableOpacity style={styles.hideBtn} onPress={this.toggleModal}>
-              <Text style={{color: '#f2f2f2', fontSize: 14, fontWeight: 'bold'}}>Close</Text>
-            </TouchableOpacity>
+        <View style={styles.modalView}>
+          <View style={styles.huntBanner}>
+            <Image 
+              source={{uri: huntLargePhotoURL }}
+              style={{flex: 1, borderTopLeftRadius: 12, borderTopRightRadius: 12}} 
+            />
           </View>
-        </Modal>
+          <View style={styles.headerWrap}>
+            <Text style={styles.headerText}>{name}</Text>
+          </View>
+          <View style={styles.textWrap}>
+            <Text style={{ marginBottom: 10 }}>{`Score: ${star_rating}/5`}</Text>
+            <Text style={{ marginBottom: 10 }}>{`Starting Area: ${starting_location}`}</Text>
+            <Text style={{ marginBottom: 10 }}>{description}</Text>
+          </View>
+          <TouchableOpacity style={styles.hideBtn} onPress={this.toggleModal}>
+            <Text style={{color: '#f2f2f2', fontSize: 14, fontWeight: 'bold'}}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     );
   }
 }
@@ -91,16 +90,16 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     width: 240,
-  }
+  },
 });
 
 const mapStateToProps = ({ showMarkerModal, markerModalContent }) => ({
   showMarkerModal,
-  markerModalContent
-})
+  markerModalContent,
+});
 
 const mapDispatchToProps = dispatch => ({
-  toggleMarkerModal: () =>  dispatch(toggleMarkerModal())
-})
+  toggleMarkerModal: () =>  dispatch(toggleMarkerModal()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarkerModal);

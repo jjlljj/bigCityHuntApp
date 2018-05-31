@@ -12,7 +12,7 @@ class BlogView extends Component {
         source={{uri: 'https://letsroam.com/explorer/)'}}
         style={{marginTop: 20, flex: 1}}
       />
-    )
+    );
   }
 }
 

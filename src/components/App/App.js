@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createBottomTabNavigator, TabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from '../../reducers/rootReducer';
@@ -15,21 +15,21 @@ const routeConfig = {
   Blog: {
     screen: BlogView 
   },
-}
+};
 
 const navConfig = {
   tabBarPosition: "bottom",
   tabBarOptions: {
-  activeTintColor: "#f2f2f2",
-  activeBackgroundColor: "#2EC4B6",
-  inactiveTintColor: "#666",
-  padding: 20,
-  labelStyle: {
-    fontSize: 22,
-    padding: 12
+    activeTintColor: "#f2f2f2",
+    activeBackgroundColor: "#2EC4B6",
+    inactiveTintColor: "#666",
+    padding: 20,
+    labelStyle: {
+      fontSize: 22,
+      padding: 12
+    }
   }
- }
-}
+};
 
 const RootNav = createBottomTabNavigator(routeConfig, navConfig);
 
