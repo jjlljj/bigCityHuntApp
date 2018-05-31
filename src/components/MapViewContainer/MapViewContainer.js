@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchHunts } from '../../api/apiCalls.js'; 
 import { addHunts } from '../../actions';
 import MapView, { Marker } from 'react-native-maps';
+
+const markerIcon = require('./assets/marker-icon.png')
 
 class MapViewContainer extends Component {
   static navigationOptions = {
@@ -18,14 +20,38 @@ class MapViewContainer extends Component {
     try {
       const hunts = await fetchHunts()
       this.props.addHunts(hunts)
-      console.log('hunts', hunts[0])
     } catch (error) {
       console.log(error)
     }
   }
 
-  render() {
+  renderHuntMarkers = () => {
     let { hunts } = this.props
+
+    if (hunts.length) {
+      return hunts.map(hunt => {
+        return (
+          <Marker
+            style={{width: 28, height: 34}} 
+            key={`hunt${hunt.hunt_id}`}
+            coordinate={{latitude: parseFloat(hunt.lat), longitude: parseFloat(hunt.long)}}
+            onCalloutPress={() => this.handleCalloutPress(hunt.name)}
+            title={hunt.name}
+            centerOffset={{x: -6, y: -20}}
+            calloutOffset={{x: 0, y: -24}}
+          >
+            <Image source={markerIcon} style={{width: 24, height: 36, marginLeft: -6, marginTop: -20}} />
+          </Marker>
+        )
+      })
+    }
+  }
+
+  handleCalloutPress = huntName => {
+    console.log(huntName)
+  }
+
+  render() {
 
     return (
        <MapView
@@ -38,12 +64,7 @@ class MapViewContainer extends Component {
           longitudeDelta: 0.0421,
         }}
       >
-        { hunts.length &&
-          <Marker
-            coordinate={{latitude: parseFloat(hunts[0].lat), longitude: parseFloat(hunts[0].long)}}
-            title={"Cool Marker"}
-          />
-        }
+        { this.renderHuntMarkers() }
       </MapView>
     )
   }
@@ -54,7 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
 });
 
