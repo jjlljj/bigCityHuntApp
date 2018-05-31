@@ -16,7 +16,13 @@ class MarkerModal extends Component {
     console.log(markerModalContent)
 
     return (
-        <Modal isVisible={showMarkerModal} animationIn="slideInUp" animationTiming="300">
+      <Modal 
+        isVisible={showMarkerModal} 
+        animationIn="slideInUp" 
+        animationTiming="400" 
+        hideModalContentWhileAnimatinbg="true"
+        supportedOrientations={['portrait']}
+      >
           <View style={styles.modalView}>
             <View style={styles.huntBanner}>
               <Image 
