@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 import { createBottomTabNavigator, TabNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
